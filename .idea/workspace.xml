@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="2f3a4da0-c236-4e68-9aa2-aa7c5b54ed65" name="Default Changelist" comment="" />
+    <list default="true" id="2f3a4da0-c236-4e68-9aa2-aa7c5b54ed65" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/datasets/vowel.arrf" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/toolkit/neuralnet_learner.py" beforeDir="false" afterPath="$PROJECT_DIR$/toolkit/neuralnet_learner.py" afterDir="false" />
+    </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -23,14 +27,15 @@
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
-          <entry key="arff" value="16" />
+          <entry key="arff" value="17" />
+          <entry key="arrf" value="2" />
           <entry key="csv" value="1" />
           <entry key="py" value="23" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
-          <entry key="PLAIN_TEXT" value="17" />
+          <entry key="PLAIN_TEXT" value="20" />
           <entry key="Python" value="23" />
         </counts>
       </usages-collector>
@@ -38,13 +43,13 @@
         <counts>
           <entry key="arff" value="58" />
           <entry key="dummy" value="19" />
-          <entry key="py" value="14733" />
+          <entry key="py" value="16030" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
           <entry key="PLAIN_TEXT" value="77" />
-          <entry key="Python" value="14733" />
+          <entry key="Python" value="16030" />
         </counts>
       </usages-collector>
     </session>
@@ -63,37 +68,43 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/toolkit/neuralnet_learner.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="90">
-              <caret line="222" column="52" selection-start-line="222" selection-start-column="52" selection-end-line="222" selection-end-column="52" />
+            <state relative-caret-position="262">
+              <caret line="335" column="59" selection-start-line="335" selection-start-column="59" selection-end-line="335" selection-end-column="59" />
               <folding>
                 <element signature="e#0#84#0" expanded="true" />
-                <element signature="e#845#980#0" />
                 <element signature="e#973#994#0" />
                 <element signature="e#1033#1326#0" />
-                <element signature="e#1378#1815#0" />
                 <element signature="e#1865#1883#0" />
-                <element signature="e#1946#2051#0" />
                 <element signature="e#2168#2207#0" />
                 <element signature="e#2262#2422#0" />
                 <element signature="e#2483#2654#0" />
                 <element signature="e#2169#2323#0" />
-                <element signature="e#3190#3780#0" />
                 <element signature="e#3855#5333#0" />
                 <element signature="e#3520#4755#0" />
                 <element signature="e#4567#5266#0" />
                 <element signature="e#3145#3814#0" />
                 <element signature="e#7978#8765#0" />
-                <element signature="e#7973#8321#1" />
                 <element signature="e#6281#6842#1" />
-                <marker date="1550699405043" expanded="true" signature="946:990" ph="..." />
-                <marker date="1550699405043" expanded="true" signature="2679:2902" ph="..." />
-                <marker date="1550699405043" expanded="true" signature="3144:10179" ph="..." />
-                <marker date="1550699405043" expanded="true" signature="6617:7337" ph="..." />
-                <marker date="1550699405043" expanded="true" signature="9372:10179" ph="..." />
+                <marker date="1550719576050" expanded="true" signature="1090:1134" ph="..." />
+                <marker date="1550719576050" expanded="true" signature="2927:3150" ph="..." />
+                <marker date="1550719576050" expanded="true" signature="3392:10556" ph="..." />
+                <marker date="1550719576050" expanded="true" signature="4123:4249" ph="..." />
+                <marker date="1550719576050" expanded="true" signature="4287:4296" ph="..." />
+                <marker date="1550719576050" expanded="true" signature="7039:7715" ph="..." />
+                <marker date="1550719576050" expanded="true" signature="9749:10556" ph="..." />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/datasets/vowel.arrf">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="43">
+              <caret line="712" column="32" lean-forward="true" selection-start-line="712" selection-start-column="32" selection-end-line="712" selection-end-column="32" />
             </state>
           </provider>
         </entry>
@@ -101,8 +112,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/toolkit/matrix.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="238">
-              <caret line="92" selection-start-line="92" selection-end-line="92" />
+            <state relative-caret-position="188">
+              <caret line="50" column="32" lean-forward="true" selection-start-line="50" selection-start-column="32" selection-end-line="50" selection-end-column="32" />
               <folding>
                 <element signature="e#0#84#0" expanded="true" />
               </folding>
@@ -126,7 +137,7 @@
         <entry file="file://$PROJECT_DIR$/toolkit/perceptron_learner.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="238">
-              <caret line="29" column="10" lean-forward="true" selection-start-line="29" selection-start-column="10" selection-end-line="29" selection-end-column="10" />
+              <caret line="29" column="10" selection-start-line="29" selection-start-column="10" selection-end-line="29" selection-end-column="10" />
               <folding>
                 <element signature="e#0#84#0" expanded="true" />
                 <marker date="1550018098504" expanded="true" signature="792:1124" ph="..." />
@@ -149,9 +160,12 @@
       <find>bias_index</find>
       <find>activation</find>
       <find>desc</find>
-      <find>==</find>
       <find>.activation</find>
+      <find>==</find>
     </findStrings>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
@@ -164,6 +178,7 @@
         <option value="$PROJECT_DIR$/toolkit/perceptron_learner.py" />
         <option value="$PROJECT_DIR$/datasets/neuralnet.arff" />
         <option value="$PROJECT_DIR$/toolkit/supervised_learner.py" />
+        <option value="$PROJECT_DIR$/datasets/vowel.arrf" />
         <option value="$PROJECT_DIR$/toolkit/neuralnet_learner.py" />
       </list>
     </option>
@@ -190,6 +205,7 @@
       </profile-state>
     </entry>
   </component>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
     <navigator proportions="" version="1">
       <foldersAlwaysOnTop value="true" />
@@ -278,7 +294,7 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <option name="SCRIPT_NAME" value="toolkit.manager" />
-      <option name="PARAMETERS" value="-L neuralnet -A ../datasets/iris.arff -E training" />
+      <option name="PARAMETERS" value="-L neuralnet -A ../datasets/vowel.arff -E training" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
       <option name="MODULE_MODE" value="false" />
@@ -346,17 +362,17 @@
     <frame x="-7" y="-7" width="1721" height="935" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.11223278" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.11223278" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32793018" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.30049875" />
+      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.30049875" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.3990025" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" weight="0.32917705" />
-      <window_info anchor="bottom" id="Version Control" order="7" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Version Control" order="7" />
       <window_info anchor="bottom" id="Terminal" order="8" weight="0.32917705" />
       <window_info anchor="bottom" id="Event Log" order="9" side_tool="true" />
       <window_info anchor="bottom" id="Python Console" order="10" />
@@ -397,13 +413,6 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/datasets/iris.arff">
       <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/datasets/voting.arff">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="215" column="46" lean-forward="true" selection-start-line="215" selection-start-column="46" selection-end-line="215" selection-end-column="46" />
-        </state>
-      </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/toolkit/graph.csv">
       <provider selected="true" editor-type-id="text-editor" />
@@ -453,16 +462,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/toolkit/matrix.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="238">
-          <caret line="92" selection-start-line="92" selection-end-line="92" />
-          <folding>
-            <element signature="e#0#84#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/datasets/neuralnet.arff">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="536">
@@ -483,7 +482,7 @@
     <entry file="file://$PROJECT_DIR$/toolkit/perceptron_learner.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="238">
-          <caret line="29" column="10" lean-forward="true" selection-start-line="29" selection-start-column="10" selection-end-line="29" selection-end-column="10" />
+          <caret line="29" column="10" selection-start-line="29" selection-start-column="10" selection-end-line="29" selection-end-column="10" />
           <folding>
             <element signature="e#0#84#0" expanded="true" />
             <marker date="1550018098504" expanded="true" signature="792:1124" ph="..." />
@@ -501,36 +500,57 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/toolkit/neuralnet_learner.py">
+    <entry file="file://$PROJECT_DIR$/toolkit/matrix.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="222" column="52" selection-start-line="222" selection-start-column="52" selection-end-line="222" selection-end-column="52" />
+        <state relative-caret-position="188">
+          <caret line="50" column="32" lean-forward="true" selection-start-line="50" selection-start-column="32" selection-end-line="50" selection-end-column="32" />
           <folding>
             <element signature="e#0#84#0" expanded="true" />
-            <element signature="e#845#980#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/toolkit/neuralnet_learner.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="262">
+          <caret line="335" column="59" selection-start-line="335" selection-start-column="59" selection-end-line="335" selection-end-column="59" />
+          <folding>
+            <element signature="e#0#84#0" expanded="true" />
             <element signature="e#973#994#0" />
             <element signature="e#1033#1326#0" />
-            <element signature="e#1378#1815#0" />
             <element signature="e#1865#1883#0" />
-            <element signature="e#1946#2051#0" />
             <element signature="e#2168#2207#0" />
             <element signature="e#2262#2422#0" />
             <element signature="e#2483#2654#0" />
             <element signature="e#2169#2323#0" />
-            <element signature="e#3190#3780#0" />
             <element signature="e#3855#5333#0" />
             <element signature="e#3520#4755#0" />
             <element signature="e#4567#5266#0" />
             <element signature="e#3145#3814#0" />
             <element signature="e#7978#8765#0" />
-            <element signature="e#7973#8321#1" />
             <element signature="e#6281#6842#1" />
-            <marker date="1550699405043" expanded="true" signature="946:990" ph="..." />
-            <marker date="1550699405043" expanded="true" signature="2679:2902" ph="..." />
-            <marker date="1550699405043" expanded="true" signature="3144:10179" ph="..." />
-            <marker date="1550699405043" expanded="true" signature="6617:7337" ph="..." />
-            <marker date="1550699405043" expanded="true" signature="9372:10179" ph="..." />
+            <marker date="1550719576050" expanded="true" signature="1090:1134" ph="..." />
+            <marker date="1550719576050" expanded="true" signature="2927:3150" ph="..." />
+            <marker date="1550719576050" expanded="true" signature="3392:10556" ph="..." />
+            <marker date="1550719576050" expanded="true" signature="4123:4249" ph="..." />
+            <marker date="1550719576050" expanded="true" signature="4287:4296" ph="..." />
+            <marker date="1550719576050" expanded="true" signature="7039:7715" ph="..." />
+            <marker date="1550719576050" expanded="true" signature="9749:10556" ph="..." />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/datasets/voting.arff">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="215" column="46" lean-forward="true" selection-start-line="215" selection-start-column="46" selection-end-line="215" selection-end-column="46" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/datasets/vowel.arrf">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="43">
+          <caret line="712" column="32" lean-forward="true" selection-start-line="712" selection-start-column="32" selection-end-line="712" selection-end-column="32" />
         </state>
       </provider>
     </entry>

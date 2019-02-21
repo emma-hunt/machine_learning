@@ -17,12 +17,14 @@ class NeuralNetLearner(SupervisedLearner):
 
     labels = []
     network = []
-    c = 0.1
+    c = 0.1 # learning rate
+    a = 0.9 # alpha for momentum
     num_hidden_layers = 1
     num_nodes_per_layer = 3
 
     class Node:
         weights = []
+        prev_change_weight = []
         net = 0
         isOutput = False
         activation = 0
@@ -31,6 +33,7 @@ class NeuralNetLearner(SupervisedLearner):
 
         def __init__(self, num_inputs, is_output):
             self.weights = np.random.uniform(-1.0, 1.0, num_inputs + 1)
+            self.prev_change_weight = np.zeros(num_inputs + 1)
             self.isOutput = is_output
 
         def set_weights(self, weight):
@@ -62,7 +65,8 @@ class NeuralNetLearner(SupervisedLearner):
 
         def update_weights(self, weight_change):
             for i in range(len(self.weights)):
-                self.weights[i] = self.weights[i] + weight_change[i]
+                self.weights[i] = self.weights[i] + weight_change[i] + (NeuralNetLearner.a * self.prev_change_weight[i])
+            self.prev_change_weight = weight_change
 
     def __init__(self):
         pass
@@ -125,6 +129,12 @@ class NeuralNetLearner(SupervisedLearner):
             else:
                 output.append(0)
         return inputs[1:]
+
+    def calc_sum_square_error(self, target, output):
+        sum = 0
+        for i in range(len(target)):
+            sum += (target[i] - output[i]) ** 2
+        return sum
 
     def test_back_propagate(self, labels):
         converted_labels = labels
@@ -194,9 +204,7 @@ class NeuralNetLearner(SupervisedLearner):
                 for prev in self.network[layer_index - 1]:
                     z.append(prev.activation)
             # print("prev out: ", z)
-            i = -1
             for current_node in layer:
-                # i += 1
                 # print("for layer ", layer_index, " node ", i)
                 # print("error: ", current_node.error)
                 current_node.update_weights(self.calc_change_weights(z, current_node.error))
@@ -239,7 +247,7 @@ class NeuralNetLearner(SupervisedLearner):
         output_layer = []
         if labels.value_count(0) <= 2:
             output_layer.append(NeuralNetLearner.Node(self.num_nodes_per_layer, True))
-        else :
+        else:
             for o in range(labels.value_count(0)):
                 output_layer.append(NeuralNetLearner.Node(self.num_nodes_per_layer, True))
         self.network.append(output_layer)
@@ -278,48 +286,67 @@ class NeuralNetLearner(SupervisedLearner):
         self.build_network(features, labels)
         self.print_network()
 
-        """
-        # split train and validation sets
         features.shuffle(labels)
+        original_features = copy.deepcopy(features)
+        original_labels = copy.deepcopy(labels)
+        print("original: ", original_features.rows, original_labels.rows)
         val_size = int(features.rows/3)
-        val_features, train_features = np.split(features, [val_size])
-        print(val_features, train_features)
-        val_labels, train_labels = np.split(labels, [val_size])
-        print(val_labels, train_labels)
-        """
-        train_sse = []
-        val_sse = []
+        validation_features = Matrix(features, 0, 0, val_size, features.cols)
+        validation_labels = Matrix(labels, 0, 0, val_size, labels.cols)
+        train_features = Matrix(features, val_size, 0, features.rows - val_size, features.cols)
+        train_labels = Matrix(labels, val_size, 0, labels.rows - val_size, labels.cols)
+        print("val: ", validation_features.rows, validation_labels.rows)
+        print("train: ", train_features.rows, train_labels.rows)
+        train_mse = 0
+        val_mse = 0
 
         # train network
-        converged = False
         epochs = 0
+        total_epochs = 0
         b_error = 100
         running_error = 0
         bssf = None
-        while epochs < 100:
+        while epochs < 10:
+            running_error = 0
             print("epoch: ", epochs)
             # set up data
-            print("Test: ", self.network[0][0].weights)
             epochs += 1
-            features.shuffle(labels)
+            total_epochs += 1
+            train_features.shuffle(train_labels)
             # for each input vector/row
-            for row_index in range(features.rows):
-                inputs = np.insert(features.data[row_index], 0, 1)
-                print("master input: ", inputs)
-                print("forward propagating...")
+            for row_index in range(train_features.rows):
+                inputs = np.insert(train_features.data[row_index], 0, 1)
+                target = self.convert_labels(train_labels, row_index)
+                # print("master input: ", inputs)
+                # print("forward propagating...")
                 output = self.calculate_output(inputs)
-                print("predicted output: ", output)
-                print("predicted converted: ", output.index(max(output)))
-                print("expected output: ", labels.data[row_index][0])
-                print("converted output: ", self.convert_labels(labels, row_index))
+                # print("predicted output: ", output)
+                # print("predicted converted: ", output.index(max(output)))
+                # print("expected output: ", labels.data[row_index][0])
+                # print("converted output: ", target)
+                running_error += self.calc_sum_square_error(target, output)
                 # calculate error
-                print("back propagating...")
-                self.back_propagate(labels, row_index)
-                print("descending gradient...")
+                # print("back propagating...")
+                self.back_propagate(train_labels, row_index)
+                # print("descending gradient...")
                 self.update_weights(inputs)
-                self.print_network()
+                # self.print_network()
+            train_mse = running_error/train_features.cols
+            val_sse = 0
+            for row_index in range(validation_features.rows):
+                inputs = np.insert(validation_features.data[row_index], 0, 1)
+                target = self.convert_labels(validation_labels, row_index)
+                output = self.calculate_output(inputs)
+                val_sse += self.calc_sum_square_error(target, output)
+            val_mse = val_sse/validation_features.cols
+            if val_mse < b_error:
+                b_error = val_mse
+                bssf = copy.deepcopy(self.network)
+                epochs = 0
             # check validation set
+        self.network = bssf
         self.print_network()
+        print("total epochs: ", total_epochs)
         """
             running_error = 0
             for i in range(len(val_features)):
@@ -345,8 +372,8 @@ class NeuralNetLearner(SupervisedLearner):
         del labels[:]
         inputs = np.insert(features, 0, 1)
         output = self.calculate_output(inputs)
-        print("Features: ", features)
-        print("Output: ", output)
+        # print("Features: ", features)
+        #print("Output: ", output)
         if len(output) == 1:
             if output[0] > 0:
                 labels.append(1)
@@ -355,6 +382,5 @@ class NeuralNetLearner(SupervisedLearner):
         else:
             max_index = output.index(max(output))
             labels.append(max_index)
-
-        print("Labels: ", labels)
-        self.print_network()
+        #print("Labels: ", labels)
+        # self.print_network()
