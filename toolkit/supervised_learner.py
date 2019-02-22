@@ -2,6 +2,7 @@ from __future__ import (absolute_import, division, print_function, unicode_liter
 
 from .matrix import Matrix
 import math
+import numpy as np
 
 # this is an abstract class
 
@@ -61,6 +62,7 @@ class SupervisedLearner:
                 self.predict(feat, pred)
                 delta = targ[0] - pred[0]
                 sse += delta**2
+            # return sse / features.rows    # for mse instead of rmse
             return math.sqrt(sse / features.rows)
 
         else:
@@ -71,17 +73,36 @@ class SupervisedLearner:
 
             correct_count = 0
             prediction = []
+            running_sse = 0
             for i in range(features.rows):
                 feat = features.row(i)
                 targ = int(labels.get(i, 0))
                 if targ >= label_values_count:
                     raise Exception("The label is out of range")
                 self.predict(feat, prediction)
+                converted_target = self.convert_labels(labels, i)
+                running_sse += self.calc_sum_square_error(converted_target, prediction[1])
+                #print(running_sse)
                 pred = int(prediction[0])
+                # pred = prediction.index(max(prediction[0]))
                 if confusion:
                     confusion.set(targ, pred, confusion.get(targ, pred)+1)
                 if pred == targ:
                     correct_count += 1
-
+            #print("test mse: ", (running_sse / features.rows))
             return correct_count / features.rows
+            #return running_sse / features.rows
 
+    def calc_sum_square_error(self, target, output):
+        sum = 0
+        for i in range(len(target)):
+            sum += (target[i] - output[i]) ** 2
+        return sum
+
+    def convert_labels(self, labels, row_index):
+        if labels.value_count(0) <= 2:
+            return labels.data[row_index]
+        converted = np.zeros(labels.value_count(0))
+        col = int(labels.data[row_index][0])
+        converted[col] = 1
+        return converted

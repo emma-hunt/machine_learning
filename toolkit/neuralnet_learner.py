@@ -2,7 +2,7 @@ from __future__ import (absolute_import, division, print_function, unicode_liter
 
 from .supervised_learner import SupervisedLearner
 from .matrix import Matrix
-import math
+import csv
 import numpy as np
 import copy
 
@@ -18,9 +18,11 @@ class NeuralNetLearner(SupervisedLearner):
     labels = []
     network = []
     c = 0.1 # learning rate
-    a = 0.9 # alpha for momentum
+    a = 0.8 # alpha for momentum
     num_hidden_layers = 1
-    num_nodes_per_layer = 3
+    num_nodes_per_layer = 4
+
+    running_test_error = 0
 
     class Node:
         weights = []
@@ -283,30 +285,36 @@ class NeuralNetLearner(SupervisedLearner):
         # self.test_function()
         # return
 
-        self.build_network(features, labels)
-        self.print_network()
-
         features.shuffle(labels)
         original_features = copy.deepcopy(features)
         original_labels = copy.deepcopy(labels)
         print("original: ", original_features.rows, original_labels.rows)
+        print("original cols: ", original_features.cols)
         val_size = int(features.rows/3)
-        validation_features = Matrix(features, 0, 0, val_size, features.cols)
+        uncropped_validation_features = Matrix(features, 0, 0, val_size, features.cols)
+        validation_features = Matrix(features, 0, 2, val_size, features.cols - 2)
         validation_labels = Matrix(labels, 0, 0, val_size, labels.cols)
-        train_features = Matrix(features, val_size, 0, features.rows - val_size, features.cols)
+        train_features = Matrix(features, val_size, 2, features.rows - val_size, features.cols - 2)
         train_labels = Matrix(labels, val_size, 0, labels.rows - val_size, labels.cols)
         print("val: ", validation_features.rows, validation_labels.rows)
         print("train: ", train_features.rows, train_labels.rows)
+        print("train cols: ", train_features.cols)
+
+        self.build_network(train_features, train_labels)
+
         train_mse = 0
         val_mse = 0
-
+        train_mse_array = []
+        validation_mse_array = []
+        accuracy_array = []
         # train network
         epochs = 0
         total_epochs = 0
         b_error = 100
+        b_train_error = 100
         running_error = 0
         bssf = None
-        while epochs < 10:
+        while epochs < 5:
             running_error = 0
             print("epoch: ", epochs)
             # set up data
@@ -331,38 +339,34 @@ class NeuralNetLearner(SupervisedLearner):
                 # print("descending gradient...")
                 self.update_weights(inputs)
                 # self.print_network()
-            train_mse = running_error/train_features.cols
+            accuracy_array.append(self.measure_accuracy(uncropped_validation_features, validation_labels))
+            train_mse = running_error/train_features.rows
+            train_mse_array.append(train_mse)
             val_sse = 0
             for row_index in range(validation_features.rows):
                 inputs = np.insert(validation_features.data[row_index], 0, 1)
                 target = self.convert_labels(validation_labels, row_index)
                 output = self.calculate_output(inputs)
                 val_sse += self.calc_sum_square_error(target, output)
-            val_mse = val_sse/validation_features.cols
+            #print("train: ", val_sse)
+            val_mse = val_sse/validation_features.rows
+            validation_mse_array.append(val_mse)
             if val_mse < b_error:
                 b_error = val_mse
+                b_train_error = train_mse
                 bssf = copy.deepcopy(self.network)
                 epochs = 0
             # check validation set
         self.network = bssf
-        self.print_network()
+        # self.print_network()
         print("total epochs: ", total_epochs)
-        """
-            running_error = 0
-            for i in range(len(val_features)):
-                out = self.calculate_output(val_features[i])
-                running_error = running_error + (val_labels[i] - out)**2
-            val_error = running_error/len(val_features)
-            val_sse.append(val_error)
-            if val_error < b_error:
-                bssf = copy.deepcopy(self.network)
-                epochs = 0
-            else:
-                converged = True
-        self.network = bssf
-        print(train_sse)
-        print(val_sse)
-        """
+        print("train mse: ", b_train_error)
+        print("val mse: ", b_error)
+        with open("neuralAcc.csv", "wb") as myfile:
+            wr = csv.writer(myfile, quoting=csv.QUOTE_ALL)
+            wr.writerow(train_mse_array)
+            wr.writerow(validation_mse_array)
+            wr.writerow(accuracy_array)
 
     def predict(self, features, labels):
         """
@@ -370,10 +374,11 @@ class NeuralNetLearner(SupervisedLearner):
         :type labels: [float]
         """
         del labels[:]
+        features = features[2:]
         inputs = np.insert(features, 0, 1)
         output = self.calculate_output(inputs)
         # print("Features: ", features)
-        #print("Output: ", output)
+        # print("Output: ", output)
         if len(output) == 1:
             if output[0] > 0:
                 labels.append(1)
@@ -382,5 +387,5 @@ class NeuralNetLearner(SupervisedLearner):
         else:
             max_index = output.index(max(output))
             labels.append(max_index)
-        #print("Labels: ", labels)
+        labels.append(output)
         # self.print_network()
