@@ -80,8 +80,9 @@ class SupervisedLearner:
                 if targ >= label_values_count:
                     raise Exception("The label is out of range")
                 self.predict(feat, prediction)
-                converted_target = self.convert_labels(labels, i)
-                running_sse += self.calc_sum_square_error(converted_target, prediction[1])
+                converted_target, converted_prediction = self.convert_labels(labels, i, prediction)
+                print(converted_target, converted_prediction)
+                running_sse += self.calc_sum_square_error(converted_target, converted_prediction)
                 #print(running_sse)
                 pred = int(prediction[0])
                 # pred = prediction.index(max(prediction[0]))
@@ -90,19 +91,22 @@ class SupervisedLearner:
                 if pred == targ:
                     correct_count += 1
             #print("test mse: ", (running_sse / features.rows))
-            return correct_count / features.rows
-            #return running_sse / features.rows
+            # return correct_count / features.rows
+            return running_sse / features.rows
 
     def calc_sum_square_error(self, target, output):
         sum = 0
         for i in range(len(target)):
             sum += (target[i] - output[i]) ** 2
+        print(sum)
         return sum
 
-    def convert_labels(self, labels, row_index):
+    def convert_labels(self, labels, row_index, result):
         if labels.value_count(0) <= 2:
             return labels.data[row_index]
-        converted = np.zeros(labels.value_count(0))
+        converted_labels = np.zeros(labels.value_count(0))
+        converted_results = np.zeros(labels.value_count(0))
         col = int(labels.data[row_index][0])
-        converted[col] = 1
-        return converted
+        converted_labels[col] = 1
+        converted_results[int(result[0])] = 1
+        return converted_labels, converted_results

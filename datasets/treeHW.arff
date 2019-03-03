@@ -1,0 +1,20 @@
+@relation decision-tree-hw
+
+@attribute meat		{no, yes}
+@attribute crust	{deep, stuffed, thin}
+@attribute vegetables	{no, yes}
+@attribute quality	{bad, good, great}
+
+@data
+%
+% 9 instances
+%
+yes,thin,no,great
+no,deep,no,bad
+no,stuffed,yes,good
+yes,stuffed,yes,great
+yes,deep,no,good
+yes,deep,yes,great
+no,thin,yes,good
+yes,deep,no,good
+no,thin,no,bad
