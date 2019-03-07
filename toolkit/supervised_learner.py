@@ -73,6 +73,20 @@ class SupervisedLearner:
 
             correct_count = 0
             prediction = []
+            for i in range(features.rows):
+                feat = features.row(i)
+                targ = int(labels.get(i, 0))
+                if targ >= label_values_count:
+                    raise Exception("The label is out of range")
+                self.predict(feat, prediction)
+                pred = int(prediction[0])
+                # print(targ, pred)
+                if confusion:
+                    confusion.set(targ, pred, confusion.get(targ, pred)+1)
+                if pred == targ:
+                    correct_count += 1
+            return correct_count / features.rows
+
             running_sse = 0
             for i in range(features.rows):
                 feat = features.row(i)
@@ -91,7 +105,6 @@ class SupervisedLearner:
                 if pred == targ:
                     correct_count += 1
             #print("test mse: ", (running_sse / features.rows))
-            # return correct_count / features.rows
             return running_sse / features.rows
 
     def calc_sum_square_error(self, target, output):
